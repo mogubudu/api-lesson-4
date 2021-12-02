@@ -1,12 +1,14 @@
 import datetime as dt
 import os
 import requests
+import telegram
 
 from dotenv import load_dotenv
 from urllib.parse import urlparse, unquote
 
 load_dotenv()
-NASA_TOKEN = os.getenv("NASA_TOKEN")
+NASA_TOKEN = os.getenv('NASA_TOKEN')
+TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
 
 
 def download_image(image_name, image_url, path_to_save):
@@ -102,7 +104,10 @@ def download_image_from_nasa_epic():
                            url_archive,
                            'image_nasa_epic/')
 def main():
-    fetch_spacex_last_launch()
+    bot = telegram.Bot(token=TELEGRAM_TOKEN)
+    channel_name = '@photo_prosto_cosmos'
+    bot.send_message(text='her sobachiy', chat_id=channel_name)
+    
 
 
 if __name__ == "__main__":
