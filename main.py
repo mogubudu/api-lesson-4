@@ -1,6 +1,7 @@
 import datetime as dt
 import os
 import requests
+import time
 import telegram
 
 from dotenv import load_dotenv
@@ -9,9 +10,10 @@ from urllib.parse import urlparse, unquote
 load_dotenv()
 NASA_TOKEN = os.getenv('NASA_TOKEN')
 TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
+DELAY = int(os.getenv('DELAY_SLEEP'))
 
 
-def download_image(image_name, image_url, path_to_save):
+def download_image(image_name, image_url, path_to_save='image/'):
     directory = path_to_save
     image_name = image_name
     image_url = image_url
@@ -60,12 +62,12 @@ def create_filename(url):
     return f'{filename}{extencion}'
 
 
-def download_image_from_nasa_apod():
+def download_image_from_nasa_apod(count=30):
     api_url = 'https://api.nasa.gov/planetary/apod'
     api_key = NASA_TOKEN
     params = {
       'api_key': api_key,
-      'count': 50,
+      'count': count,
     }
 
     responce = requests.get(api_url, params)
@@ -74,8 +76,7 @@ def download_image_from_nasa_apod():
     for item in responce:
         if 'hdurl' in item:
             download_image(create_filename(item['hdurl']),
-                           item['hdurl'],
-                           'image_nasa_apod/')
+                           item['hdurl'])
 
 
 def download_image_from_nasa_epic():
@@ -101,17 +102,27 @@ def download_image_from_nasa_epic():
                            f'?api_key={api_key}')
 
             download_image(create_filename(url_archive),
-                           url_archive,
-                           'image_nasa_epic/')
-def main():
-    bot = telegram.Bot(token=TELEGRAM_TOKEN)
-    channel_name = '@photo_prosto_cosmos'
-    #bot.send_message(text='her sobachiy', chat_id=channel_name)
-    bot.send_document(chat_id=channel_name, document=open('image_nasa_apod/ngc7009_hst_big.jpg', 'rb'))
+                           url_archive)
 
+
+def send_image_to_telegram_channel(channel_name, folder_name='image'):
+    directory = folder_name
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+    bot = telegram.Bot(token=TELEGRAM_TOKEN)
+    channel_name = channel_name
+    images = os.listdir(directory)
+
+    for image in images:
+        bot.send_document(chat_id=channel_name,
+                          document=open(f'{directory}/{image}', 'rb'))
+        time.sleep(DELAY)
+
+
+def main():
+    send_image_to_telegram_channel('@photo_prosto_cosmos')
 
 
 if __name__ == "__main__":
     main()
-
-
