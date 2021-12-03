@@ -106,8 +106,9 @@ def download_image_from_nasa_epic():
 def main():
     bot = telegram.Bot(token=TELEGRAM_TOKEN)
     channel_name = '@photo_prosto_cosmos'
-    bot.send_message(text='her sobachiy', chat_id=channel_name)
-    
+    #bot.send_message(text='her sobachiy', chat_id=channel_name)
+    bot.send_document(chat_id=channel_name, document=open('image_nasa_apod/ngc7009_hst_big.jpg', 'rb'))
+
 
 
 if __name__ == "__main__":
