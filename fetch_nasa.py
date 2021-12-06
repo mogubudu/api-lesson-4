@@ -5,7 +5,6 @@ import requests
 from dotenv import load_dotenv
 from urllib.parse import urlparse, unquote
 
-load_dotenv()
 NASA_TOKEN = os.getenv('NASA_TOKEN')
 
 
@@ -90,6 +89,7 @@ def download_image_from_nasa_epic(path_to_save='images/'):
 
 
 def main():
+    load_dotenv()
     download_image_from_nasa_apod()
     download_image_from_nasa_epic()
 
