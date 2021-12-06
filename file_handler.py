@@ -26,17 +26,13 @@ def create_filename(url):
     return f'{filename}{extencion}'
 
 
+def check_folder_exist(folder_name):
+    os.makedirs(folder_name, exist_ok=True)
+
 def download_image(image_name, image_url, path_to_save):
-    directory = path_to_save
-    image_name = image_name
-    image_url = image_url
-
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-
     responce = requests.get(image_url)
     responce.raise_for_status()
 
-    with open(f'{directory}{image_name}', 'wb') as file:
+    with open(f'{path_to_save}{image_name}', 'wb') as file:
         file.write(responce.content)
 
