@@ -1,5 +1,5 @@
 import requests
-from file_handler import download_image, create_filename, check_folder_exist
+from file_handler import download_image, get_filename, check_folder_exist
 
 def fetch_spacex_last_launch(path_to_save='images/'):
     spacex_api_url = 'https://api.spacexdata.com/v4/launches/'
@@ -12,7 +12,7 @@ def fetch_spacex_last_launch(path_to_save='images/'):
     launch_spacex = responce.json()[13]
     if 'links' in launch_spacex:
         for url in launch_spacex['links']['flickr']['original']:
-            download_image(create_filename(url), url, path_to_save)
+            download_image(get_filename(url), url, path_to_save)
 
 
 def main():

@@ -3,7 +3,7 @@ import os
 import requests
 
 from dotenv import load_dotenv
-from file_handler import download_image, create_filename, check_folder_exist
+from file_handler import download_image, get_filename, check_folder_exist
 
 
 def download_image_from_nasa_apod(nasa_token,
@@ -23,7 +23,7 @@ def download_image_from_nasa_apod(nasa_token,
 
     for item in responce:
         if 'hdurl' in item:
-            download_image(create_filename(item['hdurl']),
+            download_image(get_filename(item['hdurl']),
                            item['hdurl'], path_to_save)
 
 
@@ -51,7 +51,7 @@ def download_image_from_nasa_epic(nasa_token, path_to_save='images/'):
                            f'{formatted_date}/png/{image_name}.png'
                            f'?api_key={api_key}')
 
-            download_image(create_filename(url_archive),
+            download_image(get_filename(url_archive),
                            url_archive, path_to_save)
 
 
