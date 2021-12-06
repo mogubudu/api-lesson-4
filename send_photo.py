@@ -15,12 +15,12 @@ def send_image_to_telegram_channel(telegram_token,
 
     bot = telegram.Bot(token=telegram_token)
     channel_name = channel_name
-    images = os.listdir(directory)
+    filenames = os.listdir(directory)
 
-    for image in images:
-        with open(f'{directory}/{image}', 'rb') as image:
+    for image_name in filenames:
+        with open(f'{directory}/{image_name}', 'rb') as image_name:
             bot.send_document(chat_id=channel_name,
-                              document=image)
+                              document=image_name)
 
             time.sleep(delay)
 
