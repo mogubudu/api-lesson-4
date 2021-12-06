@@ -37,10 +37,10 @@ VvolhJZVcfM2A11W8NofzEewF6yvY0o2o8d2UW7Y
 
 Пример заполненного файла .env:
 ```
-NASA_TOKEN = "your token here"
-TELEGRAM_TOKEN = "your token here"
-DELAY_SLEEP = 86400
-CHANNEL_NAME = "@your_channel_name"
+NASA_TOKEN="your token here"
+TELEGRAM_TOKEN="your token here"
+DELAY_SLEEP=86400
+CHANNEL_NAME="@your_channel_name"
 ```
 
 ## Приступаем к работе
