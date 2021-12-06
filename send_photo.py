@@ -3,22 +3,21 @@ import time
 import telegram
 
 from dotenv import load_dotenv
+from file_handler import check_folder_exist
 
 
 def send_image_to_telegram_channel(telegram_token,
                                    channel_name,
                                    delay=86400,
                                    folder_name='images'):
-    directory = folder_name
-    if not os.path.exists(directory):
-        os.makedirs(directory)
+    
+    check_folder_exist(folder_name)
 
     bot = telegram.Bot(token=telegram_token)
-    channel_name = channel_name
-    filenames = os.listdir(directory)
+    filenames = os.listdir(folder_name)
 
     for image_name in filenames:
-        with open(f'{directory}/{image_name}', 'rb') as image_name:
+        with open(f'{folder_name}/{image_name}', 'rb') as image_name:
             bot.send_document(chat_id=channel_name,
                               document=image_name)
 

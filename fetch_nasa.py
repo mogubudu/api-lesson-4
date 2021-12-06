@@ -3,7 +3,7 @@ import os
 import requests
 
 from dotenv import load_dotenv
-from file_handler import download_image, create_filename
+from file_handler import download_image, create_filename, check_folder_exist
 
 
 def download_image_from_nasa_apod(nasa_token,
@@ -15,6 +15,8 @@ def download_image_from_nasa_apod(nasa_token,
       'api_key': api_key,
       'count': count,
     }
+
+    check_folder_exist(path_to_save)
 
     responce = requests.get(api_url, params)
     responce = responce.json()
@@ -31,6 +33,8 @@ def download_image_from_nasa_epic(nasa_token, path_to_save='images/'):
     params = {
         'api_key': api_key,
     }
+
+    check_folder_exist(path_to_save)
 
     responce = requests.get(api_url, params)
     responce = responce.json()
