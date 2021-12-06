@@ -10,7 +10,7 @@ def send_image_to_telegram_channel(telegram_token,
                                    channel_name,
                                    delay=86400,
                                    folder_name='images'):
-    
+
     check_folder_exist(folder_name)
 
     bot = telegram.Bot(token=telegram_token)
