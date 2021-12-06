@@ -5,12 +5,6 @@ import requests
 from dotenv import load_dotenv
 from urllib.parse import urlparse, unquote
 
-<<<<<<< Updated upstream
-load_dotenv()
-NASA_TOKEN = os.getenv('NASA_TOKEN')
-
-=======
->>>>>>> Stashed changes
 
 def get_file_extencion(url):
     path = urlparse(url)[2]
@@ -95,16 +89,11 @@ def download_image_from_nasa_epic(nasa_token, path_to_save='images/'):
 
 
 def main():
-<<<<<<< Updated upstream
-    download_image_from_nasa_apod()
-    download_image_from_nasa_epic()
-=======
     load_dotenv()
     NASA_TOKEN = os.getenv('NASA_TOKEN')
     download_image_from_nasa_apod(NASA_TOKEN)
     download_image_from_nasa_epic(NASA_TOKEN)
 
->>>>>>> Stashed changes
 
 if __name__ == "__main__":
     main()
