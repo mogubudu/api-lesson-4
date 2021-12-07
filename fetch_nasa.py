@@ -3,20 +3,19 @@ import os
 import requests
 
 from dotenv import load_dotenv
-from file_handler import download_image, get_filename, check_folder_exist
+from file_handler import download_image, get_filename
 
 
 def download_image_from_nasa_apod(nasa_token,
                                   count=30,
                                   path_to_save='images/'):
     api_url = 'https://api.nasa.gov/planetary/apod'
-    api_key = nasa_token
     params = {
-      'api_key': api_key,
+      'api_key': nasa_token,
       'count': count,
     }
 
-    check_folder_exist(path_to_save)
+    os.makedirs(path_to_save, exist_ok=True)
 
     responce = requests.get(api_url, params)
     responce = responce.json()
@@ -29,12 +28,11 @@ def download_image_from_nasa_apod(nasa_token,
 
 def download_image_from_nasa_epic(nasa_token, path_to_save='images/'):
     api_url = 'https://api.nasa.gov/EPIC/api/natural/images'
-    api_key = nasa_token
     params = {
-        'api_key': api_key,
+        'api_key': nasa_token,
     }
 
-    check_folder_exist(path_to_save)
+    os.makedirs(path_to_save, exist_ok=True)
 
     responce = requests.get(api_url, params)
     responce = responce.json()
@@ -49,7 +47,7 @@ def download_image_from_nasa_epic(nasa_token, path_to_save='images/'):
 
             url_archive = (f'https://api.nasa.gov/EPIC/archive/natural/'
                            f'{formatted_date}/png/{image_name}.png'
-                           f'?api_key={api_key}')
+                           f'?api_key={nasa_token}')
 
             download_image(get_filename(url_archive),
                            url_archive, path_to_save)
@@ -57,9 +55,9 @@ def download_image_from_nasa_epic(nasa_token, path_to_save='images/'):
 
 def main():
     load_dotenv()
-    NASA_TOKEN = os.getenv('NASA_TOKEN')
-    download_image_from_nasa_apod(NASA_TOKEN)
-    download_image_from_nasa_epic(NASA_TOKEN)
+    nasa_token = os.getenv('NASA_TOKEN')
+    download_image_from_nasa_apod(nasa_token)
+    download_image_from_nasa_epic(nasa_token)
 
 
 if __name__ == "__main__":
