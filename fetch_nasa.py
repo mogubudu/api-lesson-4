@@ -18,6 +18,7 @@ def download_image_from_nasa_apod(nasa_token,
     os.makedirs(path_to_save, exist_ok=True)
 
     responce = requests.get(api_url, params)
+    responce.raise_for_status()
     responce = responce.json()
 
     for item in responce:
@@ -35,6 +36,7 @@ def download_image_from_nasa_epic(nasa_token, path_to_save='images/'):
     os.makedirs(path_to_save, exist_ok=True)
 
     responce = requests.get(api_url, params)
+    responce.raise_for_status()
     responce = responce.json()
 
     for item in responce:
