@@ -7,10 +7,10 @@ from urllib.parse import urlparse, unquote
 def get_filename(url):
     path = urlparse(url).path
     path = unquote(path)
-    full_filename = os.path.basename(path)
+    filename = os.path.basename(path)
 
-    filename = full_filename.replace(' ', '_')
-    return f'{filename}'
+    filename = filename.replace(' ', '_')
+    return filename
 
 
 def download_image(image_name, image_url, path_to_save):
