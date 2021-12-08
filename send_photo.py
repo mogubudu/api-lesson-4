@@ -10,8 +10,6 @@ def send_image_to_telegram_channel(telegram_token,
                                    delay=86400,
                                    folder_name='images'):
 
-    os.makedirs(folder_name, exist_ok=True)
-
     bot = telegram.Bot(token=telegram_token)
     filenames = os.listdir(folder_name)
 
