@@ -8,10 +8,10 @@ def fetch_spacex_last_launch(path_to_save='images/', index_of_launch=13):
 
     os.makedirs(path_to_save, exist_ok=True)
 
-    responce = requests.get(spacex_api_url)
-    responce.raise_for_status()
+    response = requests.get(spacex_api_url)
+    response.raise_for_status()
 
-    launch_spacex = responce.json()[index_of_launch]
+    launch_spacex = response.json()[index_of_launch]
     if 'links' in launch_spacex:
         for url in launch_spacex['links']['flickr']['original']:
             download_image(get_filename(url), url, path_to_save)
