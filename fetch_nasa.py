@@ -17,11 +17,11 @@ def download_image_from_nasa_apod(nasa_token,
 
     os.makedirs(path_to_save, exist_ok=True)
 
-    responce = requests.get(api_url, params)
-    responce.raise_for_status()
-    responce = responce.json()
+    response = requests.get(api_url, params)
+    response.raise_for_status()
+    response = response.json()
 
-    for item in responce:
+    for item in response:
         if 'hdurl' in item:
             download_image(get_filename(item['hdurl']),
                            item['hdurl'], path_to_save)
@@ -35,11 +35,11 @@ def download_image_from_nasa_epic(nasa_token, path_to_save='images/'):
 
     os.makedirs(path_to_save, exist_ok=True)
 
-    responce = requests.get(api_url, params)
-    responce.raise_for_status()
-    responce = responce.json()
+    response = requests.get(api_url, params)
+    response.raise_for_status()
+    response = response.json()
 
-    for item in responce:
+    for item in response:
         if 'image' in item:
             full_date = item['date']
             formatted_date = dt.datetime.strptime(full_date,
