@@ -14,8 +14,8 @@ def get_filename(url):
 
 
 def download_image(image_name, image_url, path_to_save):
-    responce = requests.get(image_url)
-    responce.raise_for_status()
+    response = requests.get(image_url)
+    response.raise_for_status()
 
     with open(f'{path_to_save}{image_name}', 'wb') as file:
-        file.write(responce.content)
+        file.write(response.content)
